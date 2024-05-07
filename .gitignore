@@ -361,3 +361,11 @@ MigrationBackup/
 
 # Fody - auto-generated XML schema
 FodyWeavers.xsd
+
+# Development app settings
+/Eskitech.API/appsettings.development.json
+
+# Database files
+/Eskitech.API/EskitechDb.db
+/Eskitech.API/EskitechDb.db-shm
+/Eskitech.API/EskitechDb.db-wal
