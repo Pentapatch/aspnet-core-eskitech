@@ -1,7 +1,8 @@
 ﻿using Eskitech.Entities.Categories;
 using Eskitech.Infrastructure.DbContexts;
+using Eskitech.Infrastructure.Seeding;
 
-namespace Eskitech.Infrastructure.Seeding
+namespace Eskitech.Domain.Categories
 {
     public class CategoryDataContributor(EskitechDbContext dbContext)
         : DataSeedContributor<EskitechDbContext>(dbContext)

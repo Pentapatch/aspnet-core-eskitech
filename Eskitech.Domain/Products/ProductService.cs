@@ -1,7 +1,8 @@
 ﻿using Eskitech.Domain.Exceptions;
+using Eskitech.Entities.Products;
 using Eskitech.Infrastructure.Repositories;
 
-namespace Eskitech.Entities.Products
+namespace Eskitech.Domain.Products
 {
     public class ProductService(IBaseRepository<Product> productRepository) : IProductService
     {

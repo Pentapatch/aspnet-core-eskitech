@@ -1,9 +1,10 @@
 using Eskitech.API.MappingProfiles;
+using Eskitech.Domain.Categories;
+using Eskitech.Domain.Products;
 using Eskitech.Entities.Categories;
 using Eskitech.Entities.Products;
 using Eskitech.Infrastructure.DbContexts;
 using Eskitech.Infrastructure.Repositories;
-using Eskitech.Infrastructure.Seeding;
 using Microsoft.EntityFrameworkCore;
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle

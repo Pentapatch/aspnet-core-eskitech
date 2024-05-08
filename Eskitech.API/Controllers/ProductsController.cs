@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
 using Eskitech.Contracts.Products;
 using Eskitech.Domain.Exceptions;
-using Eskitech.Entities.Products;
+using Eskitech.Domain.Products;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Eskitech.API.Controllers

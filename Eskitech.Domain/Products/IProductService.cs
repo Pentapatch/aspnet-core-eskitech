@@ -1,4 +1,6 @@
-﻿namespace Eskitech.Entities.Products
+﻿using Eskitech.Entities.Products;
+
+namespace Eskitech.Domain.Products
 {
     public interface IProductService
     {

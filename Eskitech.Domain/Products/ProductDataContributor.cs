@@ -1,7 +1,8 @@
 ﻿using Eskitech.Entities.Products;
 using Eskitech.Infrastructure.DbContexts;
+using Eskitech.Infrastructure.Seeding;
 
-namespace Eskitech.Infrastructure.Seeding
+namespace Eskitech.Domain.Products
 {
     public class ProductDataContributor(EskitechDbContext dbContext)
         : DataSeedContributor<EskitechDbContext>(dbContext)
