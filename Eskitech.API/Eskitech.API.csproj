@@ -8,6 +8,7 @@
 
   <ItemGroup>
     <PackageReference Include="AutoMapper" Version="13.0.1" />
+    <PackageReference Include="Microsoft.AspNetCore.JsonPatch" Version="8.0.4" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="8.0.4">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
@@ -16,12 +17,9 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Controllers\" />
-  </ItemGroup>
-
-  <ItemGroup>
+    <ProjectReference Include="..\Eskitech.Contracts\Eskitech.Contracts.csproj" />
     <ProjectReference Include="..\Eskitech.Domain\Eskitech.Domain.csproj" />
-    <ProjectReference Include="..\Eskitech.Infrastructure\Eskitech.Infrastructure.csproj" />
+    <ProjectReference Include="..\Eskitech.Entities\Eskitech.Entities.csproj" />
   </ItemGroup>
 
 </Project>
