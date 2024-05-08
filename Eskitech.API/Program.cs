@@ -6,73 +6,105 @@ using Eskitech.Entities.Products;
 using Eskitech.Infrastructure.DbContexts;
 using Eskitech.Infrastructure.Repositories;
 using Microsoft.EntityFrameworkCore;
+using Serilog;
+using Serilog.Events;
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 
-var builder = WebApplication.CreateBuilder(args);
+var configuration = new ConfigurationBuilder()
+    .AddJsonFile("appsettings.json")
+    .Build();
 
-// Add services to the container
-builder.Services.AddControllers();
-builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
-builder.Services.AddAutoMapper(typeof(ProductMappingProfile));
-builder.Services.AddAutoMapper(typeof(CategoryMappingProfile));
+// Configure Serilog
+Log.Logger = new LoggerConfiguration()
+    .ReadFrom.Configuration(configuration)
+    .MinimumLevel.Override("Microsoft.AspNetCore.Hosting", LogEventLevel.Warning)
+    .MinimumLevel.Override("Microsoft.AspNetCore.Mvc", LogEventLevel.Warning)
+    .MinimumLevel.Override("Microsoft.AspNetCore.Routing", LogEventLevel.Warning)
+    .MinimumLevel.Information()
+    .WriteTo.Console()
+    .WriteTo.File("Logs/log.txt", rollingInterval: RollingInterval.Day)
+    .CreateLogger();
 
-// Dependency injection
-builder.Services.AddTransient<ProductDataContributor, ProductDataContributor>();
-builder.Services.AddTransient<CategoryDataContributor, CategoryDataContributor>();
-builder.Services.AddScoped<IBaseRepository<Product>, ProductRepository>();
-builder.Services.AddScoped<IBaseRepository<Category>, CategoryRepository>();
-builder.Services.AddScoped<IProductService, ProductService>();
-
-// Configure database
-builder.Services.AddDbContext<EskitechDbContext>(options =>
-{
-    var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
-    options.UseSqlite(connectionString);
-});
-
-var app = builder.Build();
-
-// Configure the HTTP request pipeline
-if (app.Environment.IsDevelopment())
-{
-    app.UseSwagger();
-    app.UseSwaggerUI(options => options.EnableTryItOutByDefault());
-}
-
-app.UseHttpsRedirection();
-app.UseAuthorization();
-
-app.MapControllers();
-
-using var scope = app.Services.CreateScope();
-var services = scope.ServiceProvider;
-
-// Migrate the database
 try
 {
-    var dbContext = services.GetRequiredService<EskitechDbContext>();
-    await dbContext.Database.MigrateAsync();
+    Log.Information("Starting web application");
+
+    var builder = WebApplication.CreateBuilder(args);
+
+    builder.Host.UseSerilog();
+
+    // Add services to the container
+    builder.Services.AddControllers();
+    builder.Services.AddEndpointsApiExplorer();
+    builder.Services.AddSwaggerGen();
+    builder.Services.AddAutoMapper(typeof(ProductMappingProfile));
+    builder.Services.AddAutoMapper(typeof(CategoryMappingProfile));
+
+    // Dependency injection
+    builder.Services.AddTransient<ProductDataContributor, ProductDataContributor>();
+    builder.Services.AddTransient<CategoryDataContributor, CategoryDataContributor>();
+    builder.Services.AddScoped<IBaseRepository<Product>, ProductRepository>();
+    builder.Services.AddScoped<IBaseRepository<Category>, CategoryRepository>();
+    builder.Services.AddScoped<IProductService, ProductService>();
+
+    // Configure database
+    builder.Services.AddDbContext<EskitechDbContext>(options =>
+    {
+        var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
+        options.UseSqlite(connectionString);
+    });
+
+    // Add Serilog to the logging pipeline
+    builder.Services.AddLogging(loggingBuilder =>
+    {
+        loggingBuilder.ClearProviders();
+        loggingBuilder.AddSerilog(dispose: true);
+    });
+
+    var app = builder.Build();
+
+    app.UseSerilogRequestLogging();
+
+    // Configure the HTTP request pipeline
+    if (app.Environment.IsDevelopment())
+    {
+        app.UseSwagger();
+        app.UseSwaggerUI(options => options.EnableTryItOutByDefault());
+    }
+
+    app.UseHttpsRedirection();
+    app.UseAuthorization();
+
+    app.MapControllers();
+
+    using var scope = app.Services.CreateScope();
+    var services = scope.ServiceProvider;
+
+    // Migrate the database
+    try
+    {
+        var dbContext = services.GetRequiredService<EskitechDbContext>();
+        await dbContext.Database.MigrateAsync();
+    }
+    catch (Exception ex)
+    {
+        Log.Fatal(ex, "Could not migrate the database");
+        throw;
+    }
+
+    // Seed the database
+    scope.ServiceProvider.GetService<CategoryDataContributor>()?.Contribute();
+    scope.ServiceProvider.GetService<ProductDataContributor>()?.Contribute();
+
+    app.Run();
 }
 catch (Exception ex)
 {
-    // TODO: Log the exception using a logger
-    Console.WriteLine($"Could not migrate the database: {ex.Message}");
+    Log.Fatal(ex, "Application terminated unexpectedly");
 }
-
-// Seed the database
-var categorySeeder = scope.ServiceProvider.GetService<CategoryDataContributor>();
-var productSeeder = scope.ServiceProvider.GetService<ProductDataContributor>();
-try
+finally
 {
-    categorySeeder?.SeedData();
-    productSeeder?.SeedData();
+    Log.Information("Shutting down web application");
+    Log.CloseAndFlush();
 }
-catch (Exception ex)
-{
-    // TODO: Log the exception using a logger
-    Console.WriteLine($"Could not seed the database: {ex.Message}");
-}
-
-app.Run();

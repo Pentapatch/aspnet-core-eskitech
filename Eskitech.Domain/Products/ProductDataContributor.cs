@@ -1,15 +1,16 @@
 ﻿using Eskitech.Entities.Products;
 using Eskitech.Infrastructure.DbContexts;
 using Eskitech.Infrastructure.Seeding;
+using Microsoft.Extensions.Logging;
 
 namespace Eskitech.Domain.Products
 {
-    public class ProductDataContributor(EskitechDbContext dbContext)
-        : DataSeedContributor<EskitechDbContext>(dbContext)
+    public class ProductDataContributor(EskitechDbContext dbContext, ILogger<ProductDataContributor> logger)
+        : DataSeedContributor<EskitechDbContext>(dbContext, logger)
     {
-        public override void SeedData()
+        protected override int SeedData()
         {
-            if (DbContext.Products.Any()) return;
+            if (DbContext.Products.Any()) return 0;
 
             DbContext.Products.Add(new Product
             {
@@ -119,7 +120,7 @@ namespace Eskitech.Domain.Products
                 CreatedAt = DateTime.UtcNow
             });
 
-            DbContext.SaveChanges();
+            return DbContext.SaveChanges();
         }
     }
 }

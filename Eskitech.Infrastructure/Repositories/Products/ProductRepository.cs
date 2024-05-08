@@ -1,11 +1,12 @@
 ﻿using Eskitech.Entities.Products;
 using Eskitech.Infrastructure.DbContexts;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
 
 namespace Eskitech.Infrastructure.Repositories
 {
-    public sealed class ProductRepository(EskitechDbContext dbContext)
-        : AuditedBaseRepository<EskitechDbContext, Product>(dbContext)
+    public sealed class ProductRepository(EskitechDbContext dbContext, ILogger<AuditedBaseRepository<EskitechDbContext, Product>> logger)
+        : AuditedBaseRepository<EskitechDbContext, Product>(dbContext, logger)
     {
         public override Product? GetById(int id) =>
             DbContext.Set<Product>()
