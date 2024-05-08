@@ -1,8 +1,8 @@
-﻿using Eskitech.Domain.Bases;
+﻿using Eskitech.Entities.Bases;
 
 #nullable disable
 
-namespace Eskitech.Domain.Categories
+namespace Eskitech.Entities.Categories
 {
     public class Category : AuditedEntity
     {

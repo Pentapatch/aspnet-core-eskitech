@@ -15,7 +15,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Eskitech.Domain\Eskitech.Domain.csproj" />
+    <ProjectReference Include="..\Eskitech.Entities\Eskitech.Entities.csproj" />
   </ItemGroup>
 
 </Project>

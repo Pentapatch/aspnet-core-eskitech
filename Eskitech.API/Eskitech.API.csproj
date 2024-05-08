@@ -20,8 +20,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Eskitech.Data\Eskitech.Data.csproj" />
     <ProjectReference Include="..\Eskitech.Domain\Eskitech.Domain.csproj" />
+    <ProjectReference Include="..\Eskitech.Entities\Eskitech.Entities.csproj" />
     <ProjectReference Include="..\Eskitech.Infrastructure\Eskitech.Infrastructure.csproj" />
   </ItemGroup>
 

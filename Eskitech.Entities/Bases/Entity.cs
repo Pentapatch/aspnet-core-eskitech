@@ -1,4 +1,4 @@
-﻿namespace Eskitech.Domain.Bases
+﻿namespace Eskitech.Entities.Bases
 {
     public abstract class Entity
     {

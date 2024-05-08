@@ -6,9 +6,4 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\Eskitech.Entities\Eskitech.Entities.csproj" />
-    <ProjectReference Include="..\Eskitech.Infrastructure\Eskitech.Infrastructure.csproj" />
-  </ItemGroup>
-
 </Project>

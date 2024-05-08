@@ -1,5 +1,5 @@
-﻿using Eskitech.Domain.Categories;
-using Eskitech.Domain.Products;
+﻿using Eskitech.Entities.Categories;
+using Eskitech.Entities.Products;
 using Microsoft.EntityFrameworkCore;
 
 namespace Eskitech.Infrastructure.DbContexts

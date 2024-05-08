@@ -4,7 +4,6 @@
 Following Controller-Service-Repository pattern, the project is divided into the following projects:
 - `Eskitech.API` --> WebAPI
 - `Eskitech.Contracts` --> Data transfer objects (DTOs)
-- `Eskitech.Data` --> Repositories (Data Access Layer)
-- `Eskitech.Domain` --> Entities and services (Business Logic Layer)
-- `Eskitech.Domain.Shared` --> Shared domain constants, enums etc.
-- `Eskitech.Infrastructure` --> DbContexts, Migrations and data seeding
+- `Eskitech.Domain` --> Services (Business Logic Layer)
+- `Eskitech.Entities` --> Entities
+- `Eskitech.Infrastructure` --> DbContexts, Migrations, Data seeding and Repositories (Data Access Layer)

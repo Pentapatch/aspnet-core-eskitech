@@ -1,4 +1,4 @@
-﻿using Eskitech.Domain.Categories;
+﻿using Eskitech.Entities.Categories;
 using Eskitech.Infrastructure.DbContexts;
 
 namespace Eskitech.Infrastructure.Seeding

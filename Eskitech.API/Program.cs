@@ -1,9 +1,7 @@
-using Eskitech.Data.Base;
-using Eskitech.Data.Categories;
-using Eskitech.Data.Products;
-using Eskitech.Domain.Categories;
-using Eskitech.Domain.Products;
+using Eskitech.Entities.Categories;
+using Eskitech.Entities.Products;
 using Eskitech.Infrastructure.DbContexts;
+using Eskitech.Infrastructure.Repositories;
 using Eskitech.Infrastructure.Seeding;
 using Microsoft.EntityFrameworkCore;
 

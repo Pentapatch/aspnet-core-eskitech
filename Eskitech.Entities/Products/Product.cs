@@ -1,10 +1,10 @@
-﻿using Eskitech.Domain.Categories;
-using Eskitech.Domain.Bases;
+﻿using Eskitech.Entities.Bases;
+using Eskitech.Entities.Categories;
 using System.ComponentModel.DataAnnotations.Schema;
 
 #nullable disable
 
-namespace Eskitech.Domain.Products
+namespace Eskitech.Entities.Products
 {
     public class Product : AuditedEntity
     {
