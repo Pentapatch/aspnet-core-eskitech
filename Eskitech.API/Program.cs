@@ -1,3 +1,7 @@
+using Eskitech.Data.Base;
+using Eskitech.Data.Categories;
+using Eskitech.Data.Products;
+using Eskitech.Domain.Categories;
 using Eskitech.Domain.Products;
 using Eskitech.Infrastructure.DbContexts;
 using Eskitech.Infrastructure.Seeding;
@@ -14,6 +18,9 @@ builder.Services.AddSwaggerGen();
 
 // Dependency injection
 builder.Services.AddTransient<ProductDataContributor, ProductDataContributor>();
+builder.Services.AddTransient<CategoryDataContributor, CategoryDataContributor>();
+builder.Services.AddScoped<IBaseRepository<Product>, ProductRepository>();
+builder.Services.AddScoped<IBaseRepository<Category>, CategoryRepository>();
 
 // Configure database
 builder.Services.AddDbContext<EskitechDbContext>(options =>
@@ -36,18 +43,14 @@ app.UseAuthorization();
 
 app.MapControllers();
 
+using var scope = app.Services.CreateScope();
+var services = scope.ServiceProvider;
+
+// Migrate the database
 try
 {
-    using var scope = app.Services.CreateScope();
-    var services = scope.ServiceProvider;
-
-    // Migrate the database
     var dbContext = services.GetRequiredService<EskitechDbContext>();
     await dbContext.Database.MigrateAsync();
-
-    // Seed the database
-    var productSeeder = scope.ServiceProvider.GetService<ProductDataContributor>();
-    productSeeder?.SeedData();
 }
 catch (Exception ex)
 {
@@ -55,5 +58,18 @@ catch (Exception ex)
     Console.WriteLine($"Could not migrate the database: {ex.Message}");
 }
 
+// Seed the database
+var categorySeeder = scope.ServiceProvider.GetService<CategoryDataContributor>();
+var productSeeder = scope.ServiceProvider.GetService<ProductDataContributor>();
+try
+{
+    categorySeeder?.SeedData();
+    productSeeder?.SeedData();
+}
+catch (Exception ex)
+{
+    // TODO: Log the exception using a logger
+    Console.WriteLine($"Could not seed the database: {ex.Message}");
+}
 
 app.Run();

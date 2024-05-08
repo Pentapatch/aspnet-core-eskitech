@@ -1,4 +1,6 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Eskitech.Domain.Categories;
+using Eskitech.Domain.Products;
+using Microsoft.EntityFrameworkCore;
 
 namespace Eskitech.Infrastructure.DbContexts
 {
@@ -16,6 +18,8 @@ namespace Eskitech.Infrastructure.DbContexts
 
         }
 
-        //public virtual DbSet<Product> Products { get; set; }
+        public virtual DbSet<Product> Products { get; set; }
+
+        public virtual DbSet<Category> Categories { get; set; }
     }
 }
