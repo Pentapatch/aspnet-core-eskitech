@@ -11,6 +11,12 @@ namespace Eskitech.Domain.Products
         public IEnumerable<Product> GetAllProducts() =>
             _productRepository.GetAll();
 
+        public IEnumerable<Product> GetAllProductsPaginated(int page, int pageSize) =>
+            _productRepository.GetAllPaginated(page, pageSize);
+
+        public int GetTotalCount() =>
+            _productRepository.GetTotalCount();
+
         public Product GetProductById(int id) =>
             _productRepository.GetById(id)
                 ?? throw new EntityNotFoundException($"Could not find a product with an Id of '{id}'.");

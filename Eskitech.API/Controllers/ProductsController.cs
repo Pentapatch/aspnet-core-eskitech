@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Eskitech.Contracts.Pagination;
 using Eskitech.Contracts.Products;
 using Eskitech.Domain.Exceptions;
 using Eskitech.Domain.Products;
@@ -16,9 +17,16 @@ namespace Eskitech.API.Controllers
         [HttpGet]
         public ActionResult<IEnumerable<ProductsGetDto>> Get()
         {
-            var products = _productService.GetAllProducts();
-            var productsDto = _mapper.Map<IEnumerable<ProductsGetDto>>(products);
-            return Ok(productsDto);
+            try
+            {
+                var products = _productService.GetAllProducts();
+                var productsDto = _mapper.Map<IEnumerable<ProductsGetDto>>(products);
+                return Ok(productsDto);
+            }
+            catch (Exception)
+            {
+                return StatusCode(500);
+            }
         }
 
         [HttpGet("{id}")]
@@ -33,6 +41,28 @@ namespace Eskitech.API.Controllers
             catch (EntityNotFoundException)
             {
                 return NotFound();
+            }
+            catch (Exception)
+            {
+                return StatusCode(500);
+            }
+        }
+
+        [HttpGet("paged")]
+        public ActionResult<PagedResultDto<ProductGetDto>> GetAllPaginated([FromQuery] PaginationQuery query)
+        {
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
+
+            try
+            {
+                var totalCount = _productService.GetTotalCount();
+                var products = _productService.GetAllProductsPaginated(query.Page, query.PageSize);
+                var productDtos = _mapper.Map<IEnumerable<ProductGetDto>>(products);
+
+                var pagedResult = new PagedResultDto<ProductGetDto>(productDtos, totalCount, query.Page, query.PageSize);
+
+                return Ok(pagedResult);
             }
             catch (Exception)
             {

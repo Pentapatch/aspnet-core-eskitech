@@ -18,5 +18,13 @@ namespace Eskitech.Infrastructure.Repositories
                 .Include(p => p.Category)
                 .Where(e => !e.IsDeleted)
                 .ToList();
+
+        public override IEnumerable<Product> GetAllPaginated(int page, int pageSize) =>
+            DbContext.Set<Product>()
+                .Include(p => p.Category)
+                .Where(e => !e.IsDeleted)
+                .Skip((page - 1) * pageSize)
+                .Take(pageSize)
+                .ToList();
     }
 }

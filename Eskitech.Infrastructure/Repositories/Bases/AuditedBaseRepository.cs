@@ -13,6 +13,16 @@ namespace Eskitech.Infrastructure.Repositories
                 .Where(e => !e.IsDeleted)
                 .ToList();
 
+        public virtual IEnumerable<TEntity> GetAllPaginated(int page, int pageSize) =>
+            DbContext.Set<TEntity>()
+                .Where(e => !e.IsDeleted)
+                .Skip((page - 1) * pageSize)
+                .Take(pageSize)
+                .ToList();
+
+        public virtual int GetTotalCount() =>
+        DbContext.Set<TEntity>().Count(e => !e.IsDeleted);
+
         public virtual TEntity? GetById(int id) =>
             DbContext.Set<TEntity>()
                 .Where(e => !e.IsDeleted)

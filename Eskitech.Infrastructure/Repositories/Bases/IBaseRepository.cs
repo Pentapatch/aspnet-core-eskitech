@@ -7,7 +7,9 @@ namespace Eskitech.Infrastructure.Repositories
         void Add(TEntity entity);
         void Delete(TEntity entity);
         IEnumerable<TEntity> GetAll();
+        IEnumerable<TEntity> GetAllPaginated(int page, int pageSize);
         TEntity? GetById(int id);
+        int GetTotalCount();
         void Update(TEntity entity);
     }
 }

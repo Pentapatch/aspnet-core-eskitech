@@ -12,6 +12,15 @@ namespace Eskitech.Infrastructure.Repositories
             DbContext.Set<TEntity>()
                 .ToList();
 
+        public virtual IEnumerable<TEntity> GetAllPaginated(int page, int pageSize) =>
+            DbContext.Set<TEntity>()
+                .Skip((page - 1) * pageSize)
+                .Take(pageSize)
+                .ToList();
+
+        public virtual int GetTotalCount() =>
+            DbContext.Set<TEntity>().Count();
+
         public virtual TEntity? GetById(int id) =>
             DbContext.Set<TEntity>()
                 .FirstOrDefault(p => p.Id == id);
