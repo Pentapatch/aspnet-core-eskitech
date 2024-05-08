@@ -1,11 +1,14 @@
 ﻿using Eskitech.Entities.Bases;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
 
 namespace Eskitech.Infrastructure.Repositories
 {
-    public abstract class AuditedBaseRepository<TDbContext, TEntity>(TDbContext dbContext)
+    public abstract class AuditedBaseRepository<TDbContext, TEntity>(TDbContext dbContext, ILogger<AuditedBaseRepository<TDbContext, TEntity>> logger)
         : IBaseRepository<TEntity> where TDbContext : DbContext where TEntity : AuditedEntity
     {
+        private readonly ILogger<AuditedBaseRepository<TDbContext, TEntity>> _logger = logger;
+
         protected TDbContext DbContext { get; } = dbContext;
 
         public virtual IEnumerable<TEntity> GetAll() =>
@@ -21,7 +24,7 @@ namespace Eskitech.Infrastructure.Repositories
                 .ToList();
 
         public virtual int GetTotalCount() =>
-        DbContext.Set<TEntity>().Count(e => !e.IsDeleted);
+            DbContext.Set<TEntity>().Count(e => !e.IsDeleted);
 
         public virtual TEntity? GetById(int id) =>
             DbContext.Set<TEntity>()
@@ -30,36 +33,68 @@ namespace Eskitech.Infrastructure.Repositories
 
         public virtual void Add(TEntity entity)
         {
-            entity.CreatedAt = DateTime.UtcNow;
+            try
+            {
+                entity.CreatedAt = DateTime.UtcNow;
 
-            DbContext.Set<TEntity>().Add(entity);
-            DbContext.SaveChanges();
+                DbContext.Set<TEntity>().Add(entity);
+                DbContext.SaveChanges();
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "An error occurred while adding a new entity of type {EntityType}", typeof(TEntity).Name);
+                throw;
+            }
         }
 
         public virtual void Update(TEntity entity)
         {
-            entity.UpdatedAt = DateTime.UtcNow;
+            try
+            {
+                entity.UpdatedAt = DateTime.UtcNow;
 
-            DbContext.Set<TEntity>().Update(entity);
-            DbContext.SaveChanges();
+                DbContext.Set<TEntity>().Update(entity);
+                DbContext.SaveChanges();
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "An error occurred while updating an entity of type {EntityType}", typeof(TEntity).Name);
+                throw;
+            }
         }
 
         public virtual void Delete(TEntity entity)
         {
-            entity.DeletedAt = DateTime.UtcNow;
-            entity.IsDeleted = true;
+            try
+            {
+                entity.DeletedAt = DateTime.UtcNow;
+                entity.IsDeleted = true;
 
-            DbContext.Set<TEntity>().Update(entity);
-            DbContext.SaveChanges();
+                DbContext.Set<TEntity>().Update(entity);
+                DbContext.SaveChanges();
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "An error occurred while deleting an entity of type {EntityType}", typeof(TEntity).Name);
+                throw;
+            }
         }
 
         public virtual void Restore(TEntity entity)
         {
-            entity.DeletedAt = null;
-            entity.IsDeleted = false;
+            try
+            {
+                entity.DeletedAt = null;
+                entity.IsDeleted = false;
 
-            DbContext.Set<TEntity>().Update(entity);
-            DbContext.SaveChanges();
+                DbContext.Set<TEntity>().Update(entity);
+                DbContext.SaveChanges();
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "An error occurred while restoring an entity of type {EntityType}", typeof(TEntity).Name);
+                throw;
+            }
         }
     }
 }
