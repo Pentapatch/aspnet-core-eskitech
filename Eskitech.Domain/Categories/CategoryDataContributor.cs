@@ -11,11 +11,12 @@ namespace Eskitech.Domain.Categories
         {
             if (DbContext.Categories.Any()) return;
 
-            DbContext.Categories.Add(new Category { Name = "Category 1", CreatedAt = DateTime.UtcNow });
-            DbContext.Categories.Add(new Category { Name = "Category 2", CreatedAt = DateTime.UtcNow });
-            DbContext.Categories.Add(new Category { Name = "Category 3", CreatedAt = DateTime.UtcNow });
-            DbContext.Categories.Add(new Category { Name = "Category 4", CreatedAt = DateTime.UtcNow });
-            DbContext.Categories.Add(new Category { Name = "Category 5", CreatedAt = DateTime.UtcNow });
+            DbContext.Categories.Add(new Category { Name = "Löparskor", CreatedAt = DateTime.UtcNow });
+            DbContext.Categories.Add(new Category { Name = "Yoga & hemmaträning", CreatedAt = DateTime.UtcNow });
+            DbContext.Categories.Add(new Category { Name = "Bollsport", CreatedAt = DateTime.UtcNow });
+            DbContext.Categories.Add(new Category { Name = "Cyckling", CreatedAt = DateTime.UtcNow });
+            DbContext.Categories.Add(new Category { Name = "Herrkläder", CreatedAt = DateTime.UtcNow });
+            DbContext.Categories.Add(new Category { Name = "Damkläder", CreatedAt = DateTime.UtcNow });
 
             DbContext.SaveChanges();
         }
