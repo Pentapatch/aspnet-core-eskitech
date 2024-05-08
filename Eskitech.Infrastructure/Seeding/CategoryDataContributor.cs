@@ -10,11 +10,11 @@ namespace Eskitech.Infrastructure.Seeding
         {
             if (DbContext.Categories.Any()) return;
 
-            DbContext.Categories.Add(new Category { Name = "Category 1" });
-            DbContext.Categories.Add(new Category { Name = "Category 2" });
-            DbContext.Categories.Add(new Category { Name = "Category 3" });
-            DbContext.Categories.Add(new Category { Name = "Category 4" });
-            DbContext.Categories.Add(new Category { Name = "Category 5" });
+            DbContext.Categories.Add(new Category { Name = "Category 1", CreatedAt = DateTime.UtcNow });
+            DbContext.Categories.Add(new Category { Name = "Category 2", CreatedAt = DateTime.UtcNow });
+            DbContext.Categories.Add(new Category { Name = "Category 3", CreatedAt = DateTime.UtcNow });
+            DbContext.Categories.Add(new Category { Name = "Category 4", CreatedAt = DateTime.UtcNow });
+            DbContext.Categories.Add(new Category { Name = "Category 5", CreatedAt = DateTime.UtcNow });
 
             DbContext.SaveChanges();
         }

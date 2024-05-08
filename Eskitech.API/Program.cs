@@ -1,3 +1,4 @@
+using Eskitech.API.MappingProfiles;
 using Eskitech.Entities.Categories;
 using Eskitech.Entities.Products;
 using Eskitech.Infrastructure.DbContexts;
@@ -13,12 +14,15 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+builder.Services.AddAutoMapper(typeof(ProductMappingProfile));
+builder.Services.AddAutoMapper(typeof(CategoryMappingProfile));
 
 // Dependency injection
 builder.Services.AddTransient<ProductDataContributor, ProductDataContributor>();
 builder.Services.AddTransient<CategoryDataContributor, CategoryDataContributor>();
 builder.Services.AddScoped<IBaseRepository<Product>, ProductRepository>();
 builder.Services.AddScoped<IBaseRepository<Category>, CategoryRepository>();
+builder.Services.AddScoped<IProductService, ProductService>();
 
 // Configure database
 builder.Services.AddDbContext<EskitechDbContext>(options =>
@@ -33,7 +37,7 @@ var app = builder.Build();
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
-    app.UseSwaggerUI();
+    app.UseSwaggerUI(options => options.EnableTryItOutByDefault());
 }
 
 app.UseHttpsRedirection();

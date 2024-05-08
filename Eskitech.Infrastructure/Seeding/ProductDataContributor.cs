@@ -18,7 +18,8 @@ namespace Eskitech.Infrastructure.Seeding
                 Price = 100m,
                 StockQuantity = 100,
                 Brand = "Brand 1",
-                CategoryId = 1
+                CategoryId = 1,
+                CreatedAt = DateTime.UtcNow
             });
 
             DbContext.Products.Add(new Product
@@ -29,7 +30,8 @@ namespace Eskitech.Infrastructure.Seeding
                 Price = 200m,
                 StockQuantity = 50,
                 Brand = "Brand 1",
-                CategoryId = 2
+                CategoryId = 2,
+                CreatedAt = DateTime.UtcNow
             });
 
             DbContext.SaveChanges();

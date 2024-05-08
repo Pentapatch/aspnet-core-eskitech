@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Eskitech.Infrastructure.Repositories
 {
-    public abstract class BaseRepository<TDbContext, TEntity>(TDbContext dbContext) 
+    public abstract class BaseRepository<TDbContext, TEntity>(TDbContext dbContext)
         : IBaseRepository<TEntity> where TDbContext : DbContext where TEntity : Entity
     {
         protected TDbContext DbContext { get; } = dbContext;

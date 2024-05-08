@@ -8,19 +8,19 @@ namespace Eskitech.Infrastructure.Repositories
     {
         protected TDbContext DbContext { get; } = dbContext;
 
-        public virtual IEnumerable<TEntity> GetAll() => 
+        public virtual IEnumerable<TEntity> GetAll() =>
             DbContext.Set<TEntity>()
                 .Where(e => !e.IsDeleted)
                 .ToList();
 
-        public virtual TEntity? GetById(int id) => 
+        public virtual TEntity? GetById(int id) =>
             DbContext.Set<TEntity>()
                 .Where(e => !e.IsDeleted)
                 .FirstOrDefault(p => p.Id == id);
 
         public virtual void Add(TEntity entity)
         {
-            entity.CreatedAt = DateTime.Now;
+            entity.CreatedAt = DateTime.UtcNow;
 
             DbContext.Set<TEntity>().Add(entity);
             DbContext.SaveChanges();
@@ -28,7 +28,7 @@ namespace Eskitech.Infrastructure.Repositories
 
         public virtual void Update(TEntity entity)
         {
-            entity.UpdatedAt = DateTime.Now;
+            entity.UpdatedAt = DateTime.UtcNow;
 
             DbContext.Set<TEntity>().Update(entity);
             DbContext.SaveChanges();
@@ -36,7 +36,7 @@ namespace Eskitech.Infrastructure.Repositories
 
         public virtual void Delete(TEntity entity)
         {
-            entity.DeletedAt = DateTime.Now;
+            entity.DeletedAt = DateTime.UtcNow;
             entity.IsDeleted = true;
 
             DbContext.Set<TEntity>().Update(entity);
