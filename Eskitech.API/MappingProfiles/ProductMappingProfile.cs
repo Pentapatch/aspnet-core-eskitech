@@ -8,6 +8,8 @@ namespace Eskitech.API.MappingProfiles
     {
         public ProductMappingProfile()
         {
+            CreateMap<ProductCreateDto, Product>();
+            CreateMap<ProductUpdateDto, Product>();
             CreateMap<Product, ProductGetDto>();
             CreateMap<Product, ProductsGetDto>();
         }

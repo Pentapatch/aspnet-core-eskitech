@@ -3,6 +3,7 @@ using Eskitech.Contracts.Pagination;
 using Eskitech.Contracts.Products;
 using Eskitech.Domain.Exceptions;
 using Eskitech.Domain.Products;
+using Eskitech.Entities.Products;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Eskitech.API.Controllers
@@ -63,6 +64,70 @@ namespace Eskitech.API.Controllers
                 var pagedResult = new PagedResultDto<ProductGetDto>(productDtos, totalCount, query.Page, query.PageSize);
 
                 return Ok(pagedResult);
+            }
+            catch (Exception)
+            {
+                return StatusCode(500);
+            }
+        }
+
+        [HttpPost]
+        public ActionResult<ProductGetDto> CreateProduct(ProductCreateDto productDto)
+        {
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
+
+            try
+            {
+                var product = _mapper.Map<Product>(productDto);
+                _productService.AddProduct(product);
+
+                var createdProductDto = _mapper.Map<ProductGetDto>(product);
+                return CreatedAtAction(nameof(GetById), new { id = product.Id }, createdProductDto);
+            }
+            catch (Exception)
+            {
+                return StatusCode(500);
+            }
+        }
+
+        [HttpPut("{id}")]
+        public ActionResult UpdateProduct(int id, [FromBody] ProductUpdateDto productDto)
+        {
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
+
+            try
+            {
+                var existingProduct = _productService.GetProductById(id);
+
+                _mapper.Map(productDto, existingProduct);
+
+                _productService.UpdateProduct(existingProduct);
+                return NoContent();
+            }
+            catch (EntityNotFoundException)
+            {
+                return NotFound();
+            }
+            catch (Exception)
+            {
+                return StatusCode(500);
+            }
+        }
+
+        [HttpDelete("{id}")]
+        public ActionResult DeleteProduct(int id)
+        {
+            try
+            {
+                var existingProduct = _productService.GetProductById(id);
+                _productService.DeleteProduct(existingProduct);
+                return NoContent();
+            }
+            catch (EntityNotFoundException)
+            {
+                return NotFound();
             }
             catch (Exception)
             {

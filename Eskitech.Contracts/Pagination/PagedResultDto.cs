@@ -1,6 +1,6 @@
 ﻿namespace Eskitech.Contracts.Pagination
 {
-    public class PagedResultDto<TDto>(IEnumerable<TDto> data, int totalCount, int page, int pageSize) 
+    public class PagedResultDto<TDto>(IEnumerable<TDto> data, int totalCount, int page, int pageSize)
         where TDto : class
     {
         public int TotalCount { get; set; } = totalCount;
