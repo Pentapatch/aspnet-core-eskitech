@@ -13,7 +13,7 @@ namespace Eskitech.Contracts.Products
 
         public string Brand { get; set; }
 
-        public LookUpDto<Category> Category { get; set; }
+        public LookupDto<Category> Category { get; set; }
 
         public decimal Price { get; set; }
 

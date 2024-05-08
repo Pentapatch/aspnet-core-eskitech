@@ -1,6 +1,8 @@
-﻿namespace Eskitech.Contracts.Lookup
+﻿using Eskitech.Entities.Bases;
+
+namespace Eskitech.Contracts.Lookup
 {
-    public class LookUpDto<TEntity>
+    public class LookupDto<TEntity> where TEntity : Entity
     {
         public int Id { get; set; }
 

@@ -19,7 +19,6 @@
     <ProjectReference Include="..\Eskitech.Contracts\Eskitech.Contracts.csproj" />
     <ProjectReference Include="..\Eskitech.Domain\Eskitech.Domain.csproj" />
     <ProjectReference Include="..\Eskitech.Entities\Eskitech.Entities.csproj" />
-    <ProjectReference Include="..\Eskitech.Infrastructure\Eskitech.Infrastructure.csproj" />
   </ItemGroup>
 
 </Project>

@@ -8,7 +8,7 @@ namespace Eskitech.API.MappingProfiles
     {
         public CategoryMappingProfile()
         {
-            CreateMap<Category, LookUpDto<Category>>()
+            CreateMap<Category, LookupDto<Category>>()
                 .ForMember(dto => dto.Id, options => options.MapFrom(src => src.Id))
                 .ForMember(dto => dto.DisplayName, options => options.MapFrom(src => src.Name));
         }
