@@ -56,7 +56,7 @@ namespace Eskitech.API.Controllers
                 return StatusCode(500);
             }
         }
-
+        
         [HttpGet("paged")]
         public ActionResult<PagedResultDto<CategoriesGetDto>> GetAllPaginated([FromQuery] PaginationQuery query)
         {
