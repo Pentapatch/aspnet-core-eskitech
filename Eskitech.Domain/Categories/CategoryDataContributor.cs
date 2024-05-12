@@ -18,6 +18,14 @@ namespace Eskitech.Domain.Categories
             DbContext.Categories.Add(new Category { Name = "Cyckling", CreatedAt = DateTime.UtcNow });
             DbContext.Categories.Add(new Category { Name = "Herrkläder", CreatedAt = DateTime.UtcNow });
             DbContext.Categories.Add(new Category { Name = "Damkläder", CreatedAt = DateTime.UtcNow });
+            DbContext.Categories.Add(new Category { Name = "Simning", CreatedAt = DateTime.UtcNow });
+            DbContext.Categories.Add(new Category { Name = "Träningsutrustning", CreatedAt = DateTime.UtcNow });
+            DbContext.Categories.Add(new Category { Name = "Fitness Tracker", CreatedAt = DateTime.UtcNow });
+            DbContext.Categories.Add(new Category { Name = "Kampsport", CreatedAt = DateTime.UtcNow });
+            DbContext.Categories.Add(new Category { Name = "Sportkläder för barn", CreatedAt = DateTime.UtcNow });
+            DbContext.Categories.Add(new Category { Name = "Outdoor & Äventyr", CreatedAt = DateTime.UtcNow });
+            DbContext.Categories.Add(new Category { Name = "Gymnastik & Dans", CreatedAt = DateTime.UtcNow });
+            DbContext.Categories.Add(new Category { Name = "Sportväskor & Ryggsäckar", CreatedAt = DateTime.UtcNow });
 
             return DbContext.SaveChanges();
         }
