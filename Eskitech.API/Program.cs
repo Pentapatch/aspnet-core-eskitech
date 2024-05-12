@@ -38,8 +38,7 @@ try
     builder.Services.AddControllers();
     builder.Services.AddEndpointsApiExplorer();
     builder.Services.AddSwaggerGen();
-    builder.Services.AddAutoMapper(typeof(ProductMappingProfile));
-    builder.Services.AddAutoMapper(typeof(CategoryMappingProfile));
+    builder.Services.AddAutoMapper(typeof(ProductMappingProfile), typeof(CategoryMappingProfile));
 
     // Dependency injection
     builder.Services.AddTransient<ProductDataContributor, ProductDataContributor>();
@@ -47,6 +46,18 @@ try
     builder.Services.AddScoped<IBaseRepository<Product>, ProductRepository>();
     builder.Services.AddScoped<IBaseRepository<Category>, CategoryRepository>();
     builder.Services.AddScoped<IProductService, ProductService>();
+    builder.Services.AddScoped<ICategoryService, CategoryService>();
+
+    // Cross-Origin Resource Sharing (CORS) config
+    builder.Services.AddCors(options =>
+        options.AddPolicy("AllowAnyPolicy",
+            policy =>
+            {
+                var allowedHosts = builder.Configuration.GetValue<string>("AllowedHosts")!;
+                policy.WithOrigins(allowedHosts)
+                .AllowAnyMethod()
+                .AllowAnyHeader();
+            }));
 
     // Configure database
     builder.Services.AddDbContext<EskitechDbContext>(options =>
@@ -73,6 +84,7 @@ try
         app.UseSwaggerUI(options => options.EnableTryItOutByDefault());
     }
 
+    app.UseCors("AllowAnyPolicy");
     app.UseHttpsRedirection();
     app.UseAuthorization();
 

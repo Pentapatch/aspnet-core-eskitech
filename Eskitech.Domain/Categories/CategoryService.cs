@@ -11,6 +11,12 @@ namespace Eskitech.Domain.Categories
         public IEnumerable<Category> GetAllCategories() =>
             _categoryRepository.GetAll();
 
+        public IEnumerable<Category> GetAllCategoriesPaginated(int page, int pageSize) =>
+            _categoryRepository.GetAllPaginated(page, pageSize);
+
+        public int GetTotalCount() =>
+            _categoryRepository.GetTotalCount();
+
         public Category GetCategoryById(int id) =>
             _categoryRepository.GetById(id)
                 ?? throw new EntityNotFoundException($"Could not find a category with an Id of '{id}'.");

@@ -11,19 +11,20 @@ namespace Eskitech.Infrastructure.Repositories
         public override Product? GetById(int id) =>
             DbContext.Set<Product>()
                 .Include(p => p.Category)
-                .Where(e => !e.IsDeleted)
+                .Where(p => !p.IsDeleted)
                 .FirstOrDefault(p => p.Id == id);
 
         public override IEnumerable<Product> GetAll() =>
             DbContext.Set<Product>()
                 .Include(p => p.Category)
-                .Where(e => !e.IsDeleted)
+                .Where(p => !p.IsDeleted)
                 .ToList();
 
         public override IEnumerable<Product> GetAllPaginated(int page, int pageSize) =>
             DbContext.Set<Product>()
                 .Include(p => p.Category)
-                .Where(e => !e.IsDeleted)
+                .Where(p => !p.IsDeleted)
+                .OrderBy(p => p.Id)
                 .Skip((page - 1) * pageSize)
                 .Take(pageSize)
                 .ToList();

@@ -19,6 +19,7 @@ namespace Eskitech.Infrastructure.Repositories
         public virtual IEnumerable<TEntity> GetAllPaginated(int page, int pageSize) =>
             DbContext.Set<TEntity>()
                 .Where(e => !e.IsDeleted)
+                .OrderBy(e => e.Id)
                 .Skip((page - 1) * pageSize)
                 .Take(pageSize)
                 .ToList();
@@ -29,7 +30,7 @@ namespace Eskitech.Infrastructure.Repositories
         public virtual TEntity? GetById(int id) =>
             DbContext.Set<TEntity>()
                 .Where(e => !e.IsDeleted)
-                .FirstOrDefault(p => p.Id == id);
+                .FirstOrDefault(e => e.Id == id);
 
         public virtual void Add(TEntity entity)
         {

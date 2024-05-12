@@ -67,9 +67,9 @@ namespace Eskitech.API.Controllers
             {
                 var totalCount = _productService.GetTotalCount();
                 var products = _productService.GetAllProductsPaginated(query.Page, query.PageSize);
-                var productDtos = _mapper.Map<IEnumerable<ProductGetDto>>(products);
+                var productDtos = _mapper.Map<IEnumerable<ProductsGetDto>>(products);
 
-                var pagedResult = new PagedResultDto<ProductGetDto>(productDtos, totalCount, query.Page, query.PageSize);
+                var pagedResult = new PagedResultDto<ProductsGetDto>(productDtos, totalCount, query.Page, query.PageSize);
 
                 _logger.LogInformation("Fetched paginated products");
                 return Ok(pagedResult);
