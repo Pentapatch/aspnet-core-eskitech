@@ -14,6 +14,8 @@ namespace Eskitech.Entities.Products
 
         public string Description { get; set; }
 
+        public string LongDescription { get; set; }
+
         public string Brand { get; set; }
 
         public int CategoryId { get; set; }

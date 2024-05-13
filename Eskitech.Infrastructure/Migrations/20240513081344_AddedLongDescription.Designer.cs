@@ -3,6 +3,7 @@ using System;
 using Eskitech.Infrastructure.DbContexts;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -10,9 +11,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Eskitech.Infrastructure.Migrations
 {
     [DbContext(typeof(EskitechDbContext))]
-    partial class EskitechDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240513081344_AddedLongDescription")]
+    partial class AddedLongDescription
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "8.0.4");

@@ -13,6 +13,8 @@ namespace Eskitech.Contracts.Products
 
         public string Description { get; set; }
 
+        public string LongDescription { get; set; }
+
         public string Brand { get; set; }
 
         public LookupDto<Category> Category { get; set; }

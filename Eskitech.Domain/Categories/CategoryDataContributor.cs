@@ -12,20 +12,20 @@ namespace Eskitech.Domain.Categories
         {
             if (DbContext.Categories.Any()) return 0;
 
-            DbContext.Categories.Add(new Category { Name = "Löparskor", CreatedAt = DateTime.UtcNow });
-            DbContext.Categories.Add(new Category { Name = "Yoga & hemmaträning", CreatedAt = DateTime.UtcNow });
-            DbContext.Categories.Add(new Category { Name = "Bollsport", CreatedAt = DateTime.UtcNow });
-            DbContext.Categories.Add(new Category { Name = "Cyckling", CreatedAt = DateTime.UtcNow });
-            DbContext.Categories.Add(new Category { Name = "Herrkläder", CreatedAt = DateTime.UtcNow });
-            DbContext.Categories.Add(new Category { Name = "Damkläder", CreatedAt = DateTime.UtcNow });
-            DbContext.Categories.Add(new Category { Name = "Simning", CreatedAt = DateTime.UtcNow });
-            DbContext.Categories.Add(new Category { Name = "Träningsutrustning", CreatedAt = DateTime.UtcNow });
-            DbContext.Categories.Add(new Category { Name = "Fitness Tracker", CreatedAt = DateTime.UtcNow });
-            DbContext.Categories.Add(new Category { Name = "Kampsport", CreatedAt = DateTime.UtcNow });
-            DbContext.Categories.Add(new Category { Name = "Sportkläder för barn", CreatedAt = DateTime.UtcNow });
-            DbContext.Categories.Add(new Category { Name = "Outdoor & Äventyr", CreatedAt = DateTime.UtcNow });
-            DbContext.Categories.Add(new Category { Name = "Gymnastik & Dans", CreatedAt = DateTime.UtcNow });
-            DbContext.Categories.Add(new Category { Name = "Sportväskor & Ryggsäckar", CreatedAt = DateTime.UtcNow });
+            DbContext.Categories.Add(new Category { Name = "Hjämar", CreatedAt = DateTime.UtcNow });              // 1
+            DbContext.Categories.Add(new Category { Name = "Goggles", CreatedAt = DateTime.UtcNow }); // 2
+            DbContext.Categories.Add(new Category { Name = "Ryggskydd", CreatedAt = DateTime.UtcNow });           // 3
+            DbContext.Categories.Add(new Category { Name = "Lavinutrustning", CreatedAt = DateTime.UtcNow });            // 4
+            DbContext.Categories.Add(new Category { Name = "Skidväskor", CreatedAt = DateTime.UtcNow });          
+            DbContext.Categories.Add(new Category { Name = "Böcker", CreatedAt = DateTime.UtcNow });
+            DbContext.Categories.Add(new Category { Name = "Offpistskidor", CreatedAt = DateTime.UtcNow });
+            DbContext.Categories.Add(new Category { Name = "Mountainskidor", CreatedAt = DateTime.UtcNow });
+            DbContext.Categories.Add(new Category { Name = "Topptursskidor", CreatedAt = DateTime.UtcNow });
+            DbContext.Categories.Add(new Category { Name = "Twintipskidor", CreatedAt = DateTime.UtcNow });
+            DbContext.Categories.Add(new Category { Name = "Pistskidor", CreatedAt = DateTime.UtcNow });
+            DbContext.Categories.Add(new Category { Name = "Alpinpjäxor", CreatedAt = DateTime.UtcNow });
+            DbContext.Categories.Add(new Category { Name = "Toppturpjäxor", CreatedAt = DateTime.UtcNow });
+            DbContext.Categories.Add(new Category { Name = "Telemarkspjäxor", CreatedAt = DateTime.UtcNow });
 
             return DbContext.SaveChanges();
         }

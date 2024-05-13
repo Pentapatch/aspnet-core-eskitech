@@ -14,6 +14,9 @@ namespace Eskitech.Contracts.Products
         public string Description { get; set; }
 
         [Required]
+        public string LongDescription { get; set; }
+
+        [Required]
         public string Brand { get; set; }
 
         [Required]
